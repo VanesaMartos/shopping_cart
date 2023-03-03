@@ -45,5 +45,42 @@ function leerDatosCurso(curso) {
   // Agregar los elementos en el carrito:
   articulosCarrito = [...articulosCarrito, infoCurso];
   console.log(articulosCarrito);
+
+  carritoHTML();
 }
 
+// Mostrar el carrito, iterando cada elemento para que se inserte en el tbody:
+function carritoHTML() {
+
+  // Limpiar el HTML:
+  limpiarHTML();
+
+  // Recorre el carrito y crea el HTML:
+  articulosCarrito.forEach(curso => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+    <td>
+      ${curso.titulo}
+    </td>
+    `;
+    // Agrega el HTML del carrito en el table boby:
+    contenedorCarrito.appendChild(row); // para agregar cada fila (row) en cada iteración
+  })
+}
+
+// Eliminar los cursos del tbody:
+function limpiarHTML(){
+  // Forma lenta:
+  // contenedorCarrito.innerHTML = '';
+  // Forma más eficiente y rápida:
+  while(contenedorCarrito.firstChild){ // el código se ejecuta mientras haya un elemento en el carrito
+    contenedorCarrito.removeChild(contenedorCarrito.firstChild)
+  }
+}
+
+
+// RECAPITULACIÓN:
+// Cuando agregamos un curso, se ejecuta la función agregarCurso, nos aseguramos de que el usuario haya clicado sobre 'Agregar al carrito' y recuperamos la info del curso seleccionado con leerDatos.
+// Se crea un objeto con la info que necesitamos, lo agregamos al carrito e imprimimos el HTML.
+// Para evitar duplicados, hay que limpiar el HTML previo y generar el nuevo HTML.
+// articulosCarrito mantiene la referencia con el spread operator.
